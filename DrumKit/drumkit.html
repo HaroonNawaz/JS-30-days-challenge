@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DrumKit</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+<div class="keys">
+    <div data-key="65" class="key">
+        <kbd>A</kbd>
+        <span class="sound">clap</span>
+        <input type="button" value="PLAY" onclick="play()">
+        <audio id="audio" src="sound/Alarm03.wav"></audio>
+    </div>
+    
+    <div data-key="83" class="key">
+        <kbd>S</kbd>
+        <span class="sound">hithat</span>
+        <input type="button" value="PLAY" onclick="play()">
+        <audio id="audio" src="sound/Alarm05.wav"></audio>
+    </div>
+
+    <div data-key="68" class="key">
+        <kbd>D</kbd>
+        <span class="sound">kick</span>
+        <input type="button" value="PLAY" onclick="play()">
+        <audio id="audio" src="sound/Alarm08.wav"></audio>
+    </div>
+    <div data-key="70" class="key">
+        <kbd>F</kbd>
+        <span class="sound">openhat</span>
+        <audio id="audio" src="sound/Alarm09.wav"></audio>
+        <input type="button" value="PLAY" onclick="play()">
+    </div>
+
+    <div data-key="71" class="key">
+        <kbd>G</kbd>
+        <span class="sound">boom</span>
+        <input type="button" value="PLAY" onclick="play()">
+        <audio id="audio" src="sound/Ring02.wav"></audio>
+    </div>
+  
+    <div data-key="72" class="key"> 
+        <kbd>H</kbd>
+        <span class="sound">ride</span>
+        <input type="button" value="PLAY" onclick="play()">
+        <audio id="audio" src="sound/Ring10.wav"></audio>
+    </div>
+
+    <div data-key="74" class="key">
+        <kbd>J</kbd>
+        <span class="sound">snare</span>
+        <input type="button" value="PLAY" onclick="play()">
+        <audio id="audio" src="sound/Speech Off.wav"></audio>
+    </div>
+
+    <div data-key="75" class="key">
+        <kbd>K</kbd>
+        <span class="sound">tom</span>
+        <input type="button" value="PLAY" onclick="play()">
+        <audio id="audio" src="sound/Windows Logon.wav"></audio>
+    </div>
+
+    <div data-key="76" class="key">
+        <kbd>L</kbd>
+        <span class="sound">tint</span>
+            <button>play</button>
+        <!-- <input type="button" value="PLAY" onclick="play()">
+        <audio id="audio_new" src="sound/Windows Logon.wav"></audio> -->
+    </div>  
+</div>
+
+
+    <audio data-key ="65" src="sound/Alarm03.wav"></audio>
+    <audio data-key ="83" src="sound/Alarm05.wav"></audio>
+    <audio data-key ="68" src="sound/Alarm08.wav"></audio>
+    <audio data-key ="70" src="sound/Alarm09.wav"></audio>
+    <audio data-key ="71" src="sound/Ring02.wav"></audio>
+    <audio data-key ="72" src="sound/Ring02.wav"></audio>
+    <audio data-key ="74" src="sound/Ring10.wav"></audio>
+    <audio data-key ="75" src="sound/Speech Off.wav"></audio>
+    <audio data-key ="76" src="sound/Windows Logon.wav"></audio>
+
+    <script>
+
+        const audio = new Audio("sound/Alarm03");
+        const buttons = document.querySelectorAll("button")
+        buttons.forEach(button =>{
+            button.addEventListener("click", () => {
+                audio.play();
+            })
+        })
+
+
+        // function play(e){
+        //     let sound = new Audio("sound/Alarm03.wav");
+        //     document.onclick = function(){
+
+            
+
+        //     // let audio_new = document.querySelectorAll(`audio_new[data-key="${e.keyCode}"]`)
+                       
+        //     // const audio_new = document.querySelector(`audio_new[data-key="${e.keyCode}"]`);
+        //     // if(!audio_new) return; //stop the function from running all together
+        //     // audio.currentTime = 0; //rewind to the start
+
+        //     audio.play();
+            
+        // }
+
+        function playSound(e){
+            const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+            const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+            if(!audio) return; //stop the function from running all together
+            audio.currentTime = 0; //rewind to the start
+            audio.play();
+            
+            key.classList.add('playing');
+        }
+        
+        
+        function removeTransition(e){
+            if(e.propertyName !== 'transform')return;
+            this.classList.remove('playing')
+        }
+        
+        const keys = document.querySelectorAll('.key')  //skip it if it's not a tansform
+        keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+        window.addEventListener('keydown', playSound)
+        
+        </script>
+
+</body>
+</html>
