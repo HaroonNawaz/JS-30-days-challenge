@@ -10,9 +10,9 @@
     <div class="clock">
     
       <div class="clock-face">
-        <div class="handhour-hand"></div>
-        <div class="handmin-hand"></div>
-        <div class="handsecond-hand"></div>
+        <div class="hand hour-hand"></div>
+        <div class="hand min-hand"></div>
+        <div class="hand second-hand"></div>
       </div>
     
     </div>
@@ -60,7 +60,7 @@
     .hand {
         width: 50%;
         height: 6px;
-        background: black;
+        background: rgb(58, 243, 113);
         position: absolute;
         top: 50%;
         transform-origin: 100%;
@@ -72,9 +72,9 @@
 </style>
 
 <script>
-    const secondHand = document.querySelector('.handsecond-hand');
-    const minHand = document.querySelector('.handmin-hand');
-    const hourHand = document.querySelector('.handhour-hand');
+    const secondHand = document.querySelector('.second-hand');
+    const minHand = document.querySelector('.min-hand');
+    const hourHand = document.querySelector('.hour-hand');
 
     function setDate (){
         const now = new Date();
@@ -85,7 +85,7 @@
 
         const mins = now.getMinutes();
         const minsDegrees = ((mins / 60)*360 +((seconds/60)*6))+90;
-        minHands.style.transform = `rotate(${minsDegrees}deg)`;
+        minHand.style.transform = `rotate(${minsDegrees}deg)`;
 
         const hour = now.getHours()
         const hourDegrees = ((hour / 12) * 360) + ((mins/60) * 30) + 90;
